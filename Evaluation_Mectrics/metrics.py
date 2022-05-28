@@ -2,6 +2,7 @@ import cv2
 from . import utils
 from matplotlib import image
 from skimage.metrics import structural_similarity as ssim
+from imed import distance as imed_distance
 import numpy as np
 
 
@@ -56,3 +57,11 @@ def sift(image_1_path, image_2_path):
         flann = cv2.FlannBasedMatcher(index_params, search_params)
         matches = flann.knnMatch(desc_1, desc_2, k=2)
         return matches
+
+def imed(image_1_path, image_2_path):
+    img_1 = cv2.imread(image_1_path)
+    img_2 = cv2.imread(image_2_path)
+    img_1 = cv2.resize(img_1, (250,250))
+    img_2 = cv2.resize(img_2, (250,250))
+    return imed_distance(img_1, img_2, sigma=1)
+

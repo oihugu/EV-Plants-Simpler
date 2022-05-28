@@ -10,19 +10,19 @@ arvores = [
 'name' : 'a',
 'rules' : {'F': 'F[+F]F[-F]F'},
 'axiom' : 'F',
-'iterations' : 5,
+'iterations' : 6,
 'segment_length' : 3,
 'alpha_zero' : 90,
-'angle' : 25.7,
+'angle' : 25,
 },
 {
 'name' : 'b',
 'rules' : {'F': 'F[+F]F[-F][F]'},
 'axiom' : 'F',
-'iterations' : 5,
+'iterations' : 6,
 'segment_length' : 10, #5
 'alpha_zero' : 90,
-'angle' : 20,
+'angle' : 25,
 },
 {
 'name' : 'c',
@@ -74,11 +74,9 @@ class Arvore():
         self.rules = rules
 
 
-"""
 for arvore in arvores:
-sys = LSystem(arvore['rules'], arvore['axiom'], arvore['iterations'], arvore['segment_length'], arvore['alpha_zero'], arvore['angle'], image_size)
-sys.run('Output', arvore['name'])
-"""
+    sys = LSystem(arvore['rules'], arvore['axiom'], arvore['iterations'], arvore['segment_length'], arvore['alpha_zero'], arvore['angle'], image_size)
+    sys.run('Output', '_' + arvore['name'])
 
 # euclidianDistance MINIMIZE format == [y]
 # templateMatching MAXIMIZE format == [[y]]
@@ -103,6 +101,7 @@ for df in list_df:
 
 df.to_csv('results.csv')
 '''
+"""
 images = ['./Output/a/a.png', './Output/b/b.png', './Output/c/c.png', './Output/d/d.png', './Output/e/e.png', './Output/f/f.png']
 print(euclidianDistance(images[0], images[0]))
 print(mse_ssim(images[0], images[0]))
@@ -110,7 +109,7 @@ print(euclidianDistance(images[0], images[1]))
 print(mse_ssim(images[0], images[1]))
 print(euclidianDistance(images[0], images[2]))
 print(mse_ssim(images[0], images[2]))
-
+"""
 
 
 """# Creating fitness function and individual
