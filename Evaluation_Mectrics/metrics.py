@@ -4,12 +4,13 @@ from matplotlib import image
 from skimage.metrics import structural_similarity as ssim
 from imed import distance as imed_distance
 import numpy as np
+from multiprocessing import Pool
 
 
 def euclidianDistance(image_1_path, image_2_path):
     image_1, image_2 = utils.load_images(image_1_path, image_2_path)
-    histogram_1 = cv2.calcHist([image_1], [0], None, [256], [0, 256])
-    histogram_2 = cv2.calcHist([image_2], [0], None, [256], [0, 256])
+    with Pool(5) as p:
+        histogram_1, histogram_2 = p.map(cv2.calcHist, [([image_1], [0], None, [256], [0, 256]), ([image_2], [0], None, [256], [0, 256])])
 
     c1 = 0
     i = 0
@@ -21,10 +22,10 @@ def euclidianDistance(image_1_path, image_2_path):
 
 def templateMatching(image_1_path, image_2_path):
     image_1, image_2 = utils.load_images(image_1_path, image_2_path)
-    image_1 = cv2.GaussianBlur(image_1, (5, 5), 0)
-    image_2 = cv2.GaussianBlur(image_2, (5, 5), 0)
+    with Pool(5) as p:
+        image_1, image_2 = p.map(cv2.GaussianBlur, [(image_1, (5, 5), 0), (image_2, (5, 5), 0)])   
     
-    methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR','cv2.TM_CCORR_NORMED',     'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+    methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR','cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
     similarity = cv2.matchTemplate(image_1, image_2, cv2.TM_CCOEFF_NORMED)
     return similarity
 
@@ -47,11 +48,17 @@ def mse_ssim(image_1_path, image_2_path):
     s = ssim(imageA, imageB)
     return m, s
 
+def wrap_swift(img):
+    _ ,desc = sift.detectAndCompute(img,None)
+    return desc
+
 def sift(image_1_path, image_2_path):
         img_1 = cv2.imread(image_1_path)
         img_2 = cv2.imread(image_2_path)
-        kp_1,desc_1 = sift.detectAndCompute(img_1,None)
-        kp_2,desc_2 = sift.detectAndCompute(img_2,None)
+
+        with Pool(8) as p:
+            desc_1, desc_2 = p.map(wrap_swift, [img_1, img_2])
+
         index_params = dict(algorithm=0, trees=5)
         search_params = dict()
         flann = cv2.FlannBasedMatcher(index_params, search_params)
