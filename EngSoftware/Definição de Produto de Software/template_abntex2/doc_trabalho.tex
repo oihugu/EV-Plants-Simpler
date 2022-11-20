@@ -76,17 +76,16 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Definição de Requisitos de Software}
-\autor{Henrique Pavanini Rodrigues\\ Hugo Amorim Martins \\ Nicole Martins do Santos}
+\titulo{Definição do produto de software}
+\autor{Hugo Amorim Martins}
 \local{São Paulo}
 \data{2022}
-\orientador{Nome do Orientador}
-\coorientador{Nome do Coorientador}
+\orientador{Leandro Nunes de Castro}
 \instituicao{%
   Universidade Presbiteriana Mackenzie
   \par
   Faculdade de Computação e Informática}
-\tipotrabalho{Tipo do Trabalho (TCC)}
+\tipotrabalho{Tipo do Trabalho (PIBIC)}
 % O preambulo deve conter o tipo do trabalho, o objetivo, 
 % o nome da instituição e a área de concentração 
 % ---
@@ -279,9 +278,7 @@
 % ---
 \begin{simbolos}
   \item[$ \Gamma $] Letra grega Gama
-  \item[$ \Lambda $] Lambda
-  \item[$ \zeta $] Letra grega minúscula zeta
-  \item[$ \in $] Pertence
+
 \end{simbolos}
 % ---
 
@@ -303,11 +300,21 @@
 
 \chapter{Introdução}
 
-Escreva a introdução aqui.
+Sistemas L ou Lindenmayer uma formalização matemática desenvolvida pelo biólogo Aristid Lindenmayer, utilizado originalmente para representar o comportamento de fungos, algas e plantas, hoje em dia, devido a sua natureza recursiva é utilizado para representação de diversas formas que possuem similaridade em sí mesmas.
+Um Sistema L consiste em uma tupla de 3 elementos, sendo eles o alfabeto do sistema(V) que contém todos os simbolos que serão interpretados pelo mesmo, o estado inicial($\omega$) ou axioma, que neste também representaremos como $S_{0}$ é a primeira sequencia de simbolos a ser interpretada pelo sistema, e as regras de produção(P) que consistem em regras de re-escrita, contento o símbolo que será substituído e por qual sequência substituiremos o mesmo.
+Sendo assim, se considerarmos R como uma função que aplica o máximo de regras de produção possível, cada iteração \textit{i} é fromada como: $S_{i+1} = R(S_{i})$.
+
+\chapter{Definição da demanda}
+A solução busca aplicar algorítimos genéticos para a evolução automática de plantas descritas por um sistema L, tal evolução se torna uma oportunidade quando tratamos um sistema L fractal como uma gramática regular qualquer, e identificamos que com a aplicação desse processo de evolução de uma maneira com a qual os seres geradores sejam esteticamente parecidos com os gerados, podemos também tentar imlementar tais conceitos levando para outros tipos de gramatica.
 
 
+\chapter{Requisitos}
 
+\chapter{Wireframes}
 
+\chapter{Modelagem}
+
+\chapter{Arquitetura}
 
 
 % ----------------------------------------------------------

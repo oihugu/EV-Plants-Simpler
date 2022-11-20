@@ -31,13 +31,13 @@ def create_folder(folder):
 
 ################################################################
 
-for tentative in range(1,4):
-    for function in [euclidianDistance, imed, mse_ssim]:
+for tentative in range(10,11):
+    for function in [mse_ssim]:
 
         if function == euclidianDistance or function == imed:
             creator.create("FitnessMax", base.Fitness, weights=(-1.0, ))
         elif function == mse_ssim:
-            creator.create("FitnessMax", base.Fitness, weights=(-1.0, 1.0))
+            creator.create("FitnessMax", base.Fitness, weights=(1.0,))
             
         creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMax)
 
@@ -55,7 +55,7 @@ for tentative in range(1,4):
         elif function == imed:
             folder = f'IMED_T_{tentative}'
         elif function == mse_ssim:
-            folder = f'MSE_SSIM_T_{tentative}'
+            folder = f'SSIM_T_{tentative}'
         
         create_folder(folder)
 
@@ -71,13 +71,13 @@ for tentative in range(1,4):
             sys = LSystem({'F' : ret}, 'F', 5, 6, 90, 25, (1250,1250))
             sys.run(folder, name)
 
-            #mse_ssim_1, ssim_1 = mse_ssim(pai_1, f'Temp_1/{name}/{name}.png')
-            #mse_ssim_2, ssim_2 = mse_ssim(pai_2, f'Temp_1/{name}/{name}.png')
+            mse_ssim_1, ssim_1 = mse_ssim(pai_1, f'{folder}/{name}/{name}.png')
+            mse_ssim_2, ssim_2 = mse_ssim(pai_2, f'{folder}/{name}/{name}.png')
             gen += 1
-            return ((function(pai_1, f'{folder}/{name}/{name}.png') + function(pai_2, f'{folder}/{name}/{name}.png')) // 2, 0)
+            return ((ssim_1 + ssim_2) // 2,)
 
-        if tentative in [2,3]:
-            pop = toolbox.population(n=14)
+        if tentative in [10]:
+            pop = toolbox.population(n=10)
         else:
             pop = toolbox.population(n=2)
 
