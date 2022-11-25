@@ -1,0 +1,8 @@
+[
+    {"command" : "stack_append",
+     "arguments" : [[3.6739403974420594e-16, 6.0], 90.0]}, 
+    {"command" : "right",
+    "arguments": [25, [0, 0]]}, 
+    {"command" : "pen_up",
+    "arguments": [0, 0]}
+]

@@ -1,21 +1,37 @@
 package main
 
 import (
-    "fmt"
+	"encoding/json"
+	"fmt"
 )
 
 func main() {
-   // Open our jsonFile
-    jsonFile, err := os.Open("./temp_json/l_sys_draw.json")
+	type command_pattern struct {
+		command string `json:"command"`
+	}
 
-    // if we os.Open returns an error then handle it
-    if err != nil {
-        fmt.Println(err)
-    }
+	var str = `{"command" : "stack_append"}`
 
-    fmt.Println("Successfully Opened users.json")
-    // defer the closing of our jsonFile so that we can parse it later on
+	// Open our jsonFile
+	// jsonFile, err := os.Open("./temp_json/temp_copy.json")
 
-    defer jsonFile.Close()
+	// // if we os.Open returns an error then handle it
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+
+	//byteValue, _ := ioutil.ReadAll(jsonFile)
+
+	//var commands command_pattern
+
+	var m command_pattern
+
+	if err := json.Unmarshal([]byte(str), &m); err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%+v\n", m)
+
+	//defer jsonFile.Close()
 
 }
